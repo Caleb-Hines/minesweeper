@@ -2,9 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sup</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <title>Minesweeper</title>
 </head>
 <body>
-<h1>Yo</h1>
+
+<!-- Header -->
+<div class="text-center mx-auto py-5">
+    <h1>Normal old game of minesweeper</h1>
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-6">Col 1</div>-->
+<!--            <div class="col-6">Col 2</div>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
+
+
+<!-- Body -->
+<div id="minesweeper-container" class="mx-auto">
+
+</div>
+
 </body>
+
+
+<script type="text/javascript">
+    var ms = $('#minesweeper-container');
+
+    var grid_size = 10; // num of rows, also num of cols
+    var grid = [];
+
+    for (let i=0; i<grid_size; i++) {
+        let new_row = $('<div class="row mine_row"></div>');
+        for (let j=0; j<grid_size; j++) {
+            new_row.append($('<div class="col mine_col">col</div>'));
+        }
+        ms.append(new_row);
+    }
+</script>
 </html>
