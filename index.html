@@ -34,10 +34,20 @@
     var grid_size = 10; // num of rows, also num of cols
     var grid = [];
 
+    var num_bombs = 10;
+
     for (let i=0; i<grid_size; i++) {
         let new_row = $('<div class="row mine_row"></div>');
         for (let j=0; j<grid_size; j++) {
-            new_row.append($('<div class="col mine_col">col</div>'));
+            let text;
+            if (Math.random() < .1 && num_bombs > 0) {
+                // this is bomb
+                text = 'bomb';
+                num_bombs--;
+            } else {
+                text = 'safe';
+            }
+            new_row.append($('<div class="col mine_col">' + text + '</div>'));
         }
         ms.append(new_row);
     }

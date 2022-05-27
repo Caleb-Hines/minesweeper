@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="782a1e93-5661-4a0f-8d21-bcf192f842f5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../minesweeper/header.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../minesweeper/js/jquery-3.6.0.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../minesweeper/.idea/minesweeper.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../minesweeper/.idea/minesweeper.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../minesweeper/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../minesweeper/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="782a1e93-5661-4a0f-8d21-bcf192f842f5" name="Default Changelist" comment="thingy">
       <change beforePath="$PROJECT_DIR$/../minesweeper/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../minesweeper/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../minesweeper/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../minesweeper/index.html" afterDir="false" />
     </list>
@@ -58,21 +54,33 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1653693050974</updated>
-      <workItem from="1653693053506" duration="1789000" />
+      <workItem from="1653693053506" duration="2032000" />
     </task>
+    <task id="LOCAL-00001" summary="thingy">
+      <created>1653694877859</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1653694877859</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="thingy" />
+    <option name="LAST_COMMIT_MESSAGE" value="thingy" />
   </component>
   <component name="WindowStateProjectService">
     <state x="3300" y="469" key="FileChooserDialogImpl" timestamp="1653693670482">
       <screen x="2560" y="208" width="1920" height="1040" />
     </state>
     <state x="3300" y="469" key="FileChooserDialogImpl/0.0.2560.1400/2560.208.1920.1040@2560.208.1920.1040" timestamp="1653693670482" />
-    <state x="3112" y="457" key="Vcs.Push.Dialog.v2" timestamp="1653693692249">
+    <state x="3112" y="457" key="Vcs.Push.Dialog.v2" timestamp="1653694883639">
       <screen x="2560" y="208" width="1920" height="1040" />
     </state>
-    <state x="3112" y="457" key="Vcs.Push.Dialog.v2/0.0.2560.1400/2560.208.1920.1040@2560.208.1920.1040" timestamp="1653693692249" />
+    <state x="3112" y="457" key="Vcs.Push.Dialog.v2/0.0.2560.1400/2560.208.1920.1040@2560.208.1920.1040" timestamp="1653694883639" />
   </component>
 </project>
