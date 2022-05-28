@@ -1,4 +1,11 @@
+body {
+    color: #988b9c;
+    font-family: "Comic Sans MS";
+}
+
 #minesweeper-container {
+    border-top: 5px solid #988b9c;
+    border-left: 5px solid #988b9c;
 }
 
 .grid_row {
@@ -18,27 +25,48 @@
     width: 60px;
     height: 60px;
 
-    background-color: rgba(145,131,149,0.3);
+    background-color: #ded9df;
 
-    border-top: 5px solid rgba(145,131,149,0.1);
-    border-bottom: 5px solid rgba(145,131,149,0.9);
-    border-right: 5px solid rgba(145,131,149,0.9);
-    border-left: 5px solid rgba(145,131,149,0.1);
+    border-top: 5px solid #f4f2f4;
+    border-left: 5px solid #f4f2f4;
+    border-bottom: 5px solid #988b9c;
+    border-right: 5px solid #988b9c;
 }
 
 .tile:hover {
     background-color: rgba(169,161,175,0.6);
 }
 
+.tile_flag {
+    background-color: white;
+}
+
 .tile_bomb {
-    background-color: rgba(28,28,36,0.6);
-    border: none;
+    background-color: #76767b;
+    border: 5px solid #76767b;
+}
+.tile_bomb:hover {
+    background-color: #76767b;
+    border: 5px solid #76767b;
 }
 .tile_revealed {
     background-color: white;
+    font-size: 30px;
+    font-weight: bold;
 
-    border: 3px solid rgba(145,131,149,0.1);
+    /*border: 3px solid #f4f2f4;*/
 }
 .tile_revealed:hover {
     background-color: white;
+}
+
+.text_one {
+
+}
+.text_two {
+    /*color: #584c5d;*/
+    color: #655769;
+}
+.text_three {
+
 }
