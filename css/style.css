@@ -1,0 +1,43 @@
+#minesweeper-container {
+}
+
+.grid_row {
+    height: 50px;
+    display: block;
+    text-align: center;
+}
+
+.grid_col {
+    width: 50px;
+    /*display: inline-block;*/
+
+    padding: none;
+}
+
+.tile {
+    width: 50px;
+    height: 50px;
+
+    background-color: rgba(145,131,149,0.3);
+
+    border-top: 5px solid rgba(145,131,149,0.1);
+    border-bottom: 5px solid rgba(145,131,149,0.9);
+    border-right: 5px solid rgba(145,131,149,0.9);
+    border-left: 5px solid rgba(145,131,149,0.1);
+}
+
+.tile:hover {
+    background-color: rgba(169,161,175,0.6);
+}
+
+.tile_bomb {
+    background-color: rgba(28,28,36,0.6);
+}
+.tile_revealed {
+    background-color: white;
+
+    border: 3px solid rgba(145,131,149,0.1);
+}
+.tile_revealed:hover {
+    background-color: white;
+}

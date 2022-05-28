@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery-3.6.0.min.js"></script>
     <title>Minesweeper</title>
 </head>
@@ -21,35 +22,91 @@
 
 
 <!-- Body -->
-<div id="minesweeper-container" class="mx-auto">
+<table id="minesweeper-container" class="mx-auto">
 
-</div>
+</table>
 
 </body>
 
 
 <script type="text/javascript">
-    var ms = $('#minesweeper-container');
 
+
+    function Square(is_bomb = false,) {
+        this.is_bomb = is_bomb;
+        this.is_flagged = false;
+        this.is_revealed = false;
+        this.adjacent_bombs = 0;
+    }
+
+    var ms = $('#minesweeper-container');
     var grid_size = 10; // num of rows, also num of cols
     var grid = [];
+    var num_bombs = 50 - 1;
+    function initGrid() {
+        for (let i=0; i<grid_size; i++) {
 
-    var num_bombs = 10;
-
-    for (let i=0; i<grid_size; i++) {
-        let new_row = $('<div class="row mine_row"></div>');
-        for (let j=0; j<grid_size; j++) {
-            let text;
-            if (Math.random() < .1 && num_bombs > 0) {
-                // this is bomb
-                text = 'bomb';
-                num_bombs--;
-            } else {
-                text = 'safe';
+            grid[i] = [];
+            for (let j=0; j<grid_size; j++) {
+                let text;
+                if (Math.random() < .1 && num_bombs > 0) {
+                    // this is bomb
+                    grid[i][j] = new Square(true);
+                    num_bombs--;
+                } else {
+                    grid[i][j] = new Square(false);
+                }
             }
-            new_row.append($('<div class="col mine_col">' + text + '</div>'));
         }
-        ms.append(new_row);
     }
+
+    function drawGame() {
+        ms.empty();
+        for (let i=0; i<grid.length; i++) {
+            let row = grid[i];
+            let row_el = $('<tr class="grid_row"></tr>');
+            for (let j=0; j<row.length; j++) {
+                let tile_el;
+                let col_el = $('<td class="grid_col" data-i="'+i+'" data-j="'+j+'"></td>');
+                if (!row[j].is_revealed) {
+                    tile_el = $('<td class="tile tile_hidden"></td>');
+                } else if (row[j].is_flagged) {
+                    tile_el = $('<td class="tile tile_flag"></td>');
+                } else if (row[j].is_bomb) {
+                    tile_el = $('<td class="tile tile_bomb">b</td>');
+                } else {
+                    tile_el = $('<td class="tile tile_revealed"></td>');
+                }
+
+                col_el.append(tile_el)
+                row_el.append(col_el);
+            }
+            ms.append(row_el);
+        }
+    }
+
+    function initClickers() {
+        $('.grid_col').on('click', function () {
+            let i = $(this).data('i');
+            let j = $(this).data('j');
+            console.log(i + ',' + j);;
+
+            let square = grid[i][j];
+            console.log(square);
+            square.is_revealed = true;
+
+            drawGame();
+            initClickers();
+        });
+
+    }
+
+    $(document).ready(function() {
+        initGrid();
+        drawGame();
+        initClickers();
+    });
+
+
 </script>
 </html>
