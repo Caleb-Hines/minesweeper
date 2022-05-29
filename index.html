@@ -32,8 +32,8 @@
 <script type="text/javascript">
 
 
-    function Square(is_bomb = false,) {
-        this.is_bomb = is_bomb;
+    function Square() {
+        this.is_bomb = false;
         this.is_flagged = false;
         this.is_revealed = false;
         this.adjacent_bombs = 0;
@@ -42,7 +42,7 @@
     var ms = $('#minesweeper-container');
     var grid_size = 10; // num of rows, also num of cols
     var grid = [];
-    var num_bombs = 10 - 1;
+    var num_bombs = 10;
 
     let kaboom = false;
 
@@ -50,16 +50,25 @@
         for (let i = 0; i < grid_size; i++) {
             grid[i] = [];
             for (let j = 0; j < grid_size; j++) {
-                let text;
-                if (Math.random() < .1 && num_bombs > 0) {
-                    // this is bomb
-                    grid[i][j] = new Square(true);
-                    num_bombs--;
-                } else {
-                    grid[i][j] = new Square(false);
-                }
+                grid[i][j] = new Square();
             }
         }
+
+        let bomb_locations = new Set();
+        for (let i=0; i<num_bombs;) {
+            let bomb_i = Math.floor(Math.random() * grid_size);
+            let bomb_j = Math.floor(Math.random() * grid_size);
+            let bomb_loc = [bomb_i, bomb_j];
+
+            if (!bomb_locations.has(bomb_loc)) {
+                bomb_locations.add(bomb_loc);
+                i++;
+            }
+        }
+
+        bomb_locations.forEach(function(bomb_loc) {
+            grid[bomb_loc[0]][bomb_loc[1]].is_bomb = true;
+        });
         // set num adjacent bombs
         setAdjacent();
     }
