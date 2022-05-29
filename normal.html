@@ -10,8 +10,8 @@
 <body>
 
 <!-- Header -->
-<div class="text-center mx-auto pt-5 pb-3">
-    <h1><a href="normal.html">Normal</a> old game of minesweeper</h1>
+<div class="text-center mx-auto  pt-5 pb-3">
+    <h1><a href="index.html">Minesweeper</a></h1>
     <!--    <div class="container">-->
     <!--        <div class="row">-->
     <!--            <div class="col-6">Col 1</div>-->
@@ -21,8 +21,9 @@
 </div>
 
 
+<!-- Body -->
 <div class="pb-3" style="height: 55px; text-align: center">
-    <a href="index.html" class="restart">
+    <a href="normal.html" class="restart">
         Restart
     </a>
 </div>
@@ -30,7 +31,6 @@
 <table id="minesweeper-container" class="mx-auto">
 
 </table>
-
 
 <div id="game-complete">
     <div id="game-complete-text">
@@ -64,27 +64,6 @@
                 grid[i][j] = new Square();
             }
         }
-
-        // let bomb_locations = new Set();
-        // for (let i=0; i<num_bombs;) {
-        //     let bomb_i = Math.floor(Math.random() * grid_size);
-        //     let bomb_j = Math.floor(Math.random() * grid_size);
-        //     let bomb_loc = [bomb_i, bomb_j];
-        //
-        //     if (!bomb_locations.has(bomb_loc)) {
-        //         bomb_locations.add(bomb_loc);
-        //         i++;
-        //     }
-        // }
-        //
-        // bomb_locations.forEach(function(bomb_loc) {
-        //     grid[bomb_loc[0]][bomb_loc[1]].is_bomb = true;
-        // });
-        // set num adjacent bombs
-        setAdjacent();
-    }
-
-    function setBombs() {
 
         let bomb_locations = new Set();
         for (let i=0; i<num_bombs;) {
@@ -146,11 +125,6 @@
     function setAdjacent() {
         for (let i = 0; i < grid.length; i++) {
             for (let j = 0; j < grid[i].length; j++) {
-                grid[i][j].adjacent_bombs = 0;
-            }
-        }
-        for (let i = 0; i < grid.length; i++) {
-            for (let j = 0; j < grid[i].length; j++) {
                 for (let check_i = i - 1; check_i < i + 2; check_i++) {
                     for (let check_j = j - 1; check_j < j + 2; check_j++) {
                         if (check_i >= 0 && check_j >= 0 && check_i < grid_size && check_j < grid_size && !(check_i == i && check_j == j)) {
@@ -182,12 +156,6 @@
 
                 let square = grid[i][j];
 
-                if (num_bombs > 0) {
-                    square.is_bomb = true;
-                    num_bombs--;
-                    setBombs();
-                }
-
                 if (square.is_bomb) {
                     setAllRevealed();
                     complete(false);
@@ -213,11 +181,6 @@
             console.log(i + ',' + j);
 
             let square = grid[i][j];
-            if (num_bombs > 0) {
-                square.is_bomb = true;
-                num_bombs--;
-                setAdjacent();
-            }
             if (!square.is_revealed) {
                 square.is_flagged = !square.is_flagged;
 
@@ -272,7 +235,7 @@
             text_el.text('You won!');
             top = "0%";
         } else {
-            // text_el.text('L');
+            text_el.text('L');
             top = "15%";
         }
         won_el.append(text_el);

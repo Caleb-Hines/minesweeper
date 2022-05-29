@@ -3,13 +3,52 @@ body {
     font-family: "Comic Sans MS";
     height: 100vh;
     width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: #988b9c;
+}
+a:hover {
+    color: #726477;
+}
+
+.restart {
+    display: none;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 4px 8px;
+    border: 3px solid #988b9c;
+    border-radius: 3px;
+    width: 120px;
+
+    margin-bottom: 10px;
 }
 
 #game-complete {
-    color: #988b9c;
+    pointer-events: none;
+    color: #6a5d6d;
     font-family: "Comic Sans MS";
-    font-size: 50px;
+    font-size: 300px;
     text-align: center;
+    display: none;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    height: 50%;
+
+    transition: top 1s linear;
+    /*transition-delay: 1s;*/
+}
+#game-complete-text {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 #minesweeper-container {
