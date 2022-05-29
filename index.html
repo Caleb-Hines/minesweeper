@@ -26,6 +26,10 @@
 
 </table>
 
+<div id="game-complete">
+
+</div>
+
 </body>
 
 
@@ -153,10 +157,9 @@
 
             if (square.adjacent_bombs == 0) {
                 revealZeros(i, j);
-
-                drawGame();
-                return;
             }
+
+            checkWon();
 
             drawGame();
         });
@@ -193,6 +196,27 @@
                 }
             }
         }
+    }
+
+    function checkWon() {
+        // let all_revealed = true;
+        //
+        // for (let i = 0; i < grid.length; i++) {
+        //     for (let j = 0; j < grid[i].length; j++) {
+        //         if (!grid[i][j].is_bomb && !grid[i][j].is_revealed) {
+        //             all_revealed = false;
+        //             i += 99999;
+        //             j += 99999;
+        //         }
+        //     }
+        // }
+        // if (all_revealed) {
+        //     won();
+        // }
+    }
+
+    function won() {
+        // $(body).replace
     }
 
     $(document).ready(function () {

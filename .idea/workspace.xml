@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="782a1e93-5661-4a0f-8d21-bcf192f842f5" name="Default Changelist" comment="done but cant win">
+    <list default="true" id="782a1e93-5661-4a0f-8d21-bcf192f842f5" name="Default Changelist" comment="bombs now random">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
@@ -77,7 +77,7 @@
       <updated>1653693050974</updated>
       <workItem from="1653693053506" duration="2032000" />
       <workItem from="1653708116023" duration="8382000" />
-      <workItem from="1653787919057" duration="1469000" />
+      <workItem from="1653787919057" duration="3602000" />
     </task>
     <task id="LOCAL-00001" summary="thingy">
       <created>1653694877859</created>
@@ -114,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653788423543</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="bombs now random">
+      <created>1653789516098</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1653789516098</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -138,16 +145,21 @@
     <MESSAGE value="table size fixed :)" />
     <MESSAGE value="done but cant win" />
     <MESSAGE value="php workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="php workspace.xml" />
+    <MESSAGE value="bombs now random" />
+    <option name="LAST_COMMIT_MESSAGE" value="bombs now random" />
   </component>
   <component name="WindowStateProjectService">
     <state x="3300" y="469" key="FileChooserDialogImpl" timestamp="1653693670482">
       <screen x="2560" y="208" width="1920" height="1040" />
     </state>
     <state x="3300" y="469" key="FileChooserDialogImpl/0.0.2560.1400/2560.208.1920.1040@2560.208.1920.1040" timestamp="1653693670482" />
-    <state x="3112" y="457" key="Vcs.Push.Dialog.v2" timestamp="1653788425005">
+    <state x="3112" y="457" key="Vcs.Push.Dialog.v2" timestamp="1653789517390">
       <screen x="2560" y="208" width="1920" height="1040" />
     </state>
-    <state x="3112" y="457" key="Vcs.Push.Dialog.v2/0.0.2560.1400/2560.208.1920.1040@2560.208.1920.1040" timestamp="1653788425005" />
+    <state x="3112" y="457" key="Vcs.Push.Dialog.v2/0.0.2560.1400/2560.208.1920.1040@2560.208.1920.1040" timestamp="1653789517390" />
+    <state x="3228" y="445" width="583" height="566" key="find.popup" timestamp="1653797197619">
+      <screen x="2560" y="208" width="1920" height="1040" />
+    </state>
+    <state x="3228" y="445" width="583" height="566" key="find.popup/0.0.2560.1400/2560.208.1920.1040@2560.208.1920.1040" timestamp="1653797197619" />
   </component>
 </project>

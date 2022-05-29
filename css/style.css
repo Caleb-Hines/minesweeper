@@ -1,6 +1,15 @@
 body {
     color: #988b9c;
     font-family: "Comic Sans MS";
+    height: 100vh;
+    width: 100%;
+}
+
+#game-complete {
+    color: #988b9c;
+    font-family: "Comic Sans MS";
+    font-size: 50px;
+    text-align: center;
 }
 
 #minesweeper-container {
