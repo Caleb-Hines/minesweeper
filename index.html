@@ -10,7 +10,7 @@
 <body>
 
 <!-- Header -->
-<div class="text-center mx-auto pt-5 pb-3">
+<div class="text-center mx-auto pt-3 pb-3">
     <h1><a href="normal.html">Normal</a> old game of minesweeper</h1>
     <!--    <div class="container">-->
     <!--        <div class="row">-->
@@ -86,21 +86,15 @@
 
     function setBombs() {
 
-        let bomb_locations = new Set();
         for (let i=0; i<num_bombs;) {
             let bomb_i = Math.floor(Math.random() * grid_size);
             let bomb_j = Math.floor(Math.random() * grid_size);
-            let bomb_loc = [bomb_i, bomb_j];
 
-            if (!bomb_locations.has(bomb_loc)) {
-                bomb_locations.add(bomb_loc);
+            if (!grid[bomb_i][bomb_j].is_bomb) {
+                grid[bomb_i][bomb_j].is_bomb = true;
                 i++;
             }
         }
-
-        bomb_locations.forEach(function(bomb_loc) {
-            grid[bomb_loc[0]][bomb_loc[1]].is_bomb = true;
-        });
         // set num adjacent bombs
         setAdjacent();
     }

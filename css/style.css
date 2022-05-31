@@ -4,7 +4,7 @@ body {
     height: 100vh;
     width: 100%;
     position: relative;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 a {
@@ -15,8 +15,8 @@ a:hover {
     color: #726477;
 }
 
-.restart {
-    display: none;
+.play, .restart {
+    color: #988b9c;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -27,6 +27,13 @@ a:hover {
     width: 120px;
 
     margin-bottom: 10px;
+}
+
+.play:hover, .restart:hover {
+    background-color: #ded9df;
+}
+.restart {
+    display: none;
 }
 
 #game-complete {
@@ -63,15 +70,15 @@ a:hover {
 }
 
 .grid_col {
-    width: 65px;
+    width: 60px;
     /*display: inline-block;*/
 
     padding: 0;
 }
 
 .tile {
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
 
     background-color: #ded9df;
 
@@ -92,10 +99,18 @@ a:hover {
 .tile_bomb {
     background-color: #76767b;
     border: 5px solid #76767b;
+    color: white
 }
 .tile_bomb:hover {
     background-color: #76767b;
     border: 5px solid #76767b;
+}
+.tile_bomb.clicked {
+    background-color: #690909;
+    border-color: #690909;
+}
+.tile_bomb.clicked:hover {
+    background-color: #690909;
 }
 .tile_revealed {
     background-color: white;

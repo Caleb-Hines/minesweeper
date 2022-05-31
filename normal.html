@@ -10,7 +10,7 @@
 <body>
 
 <!-- Header -->
-<div class="text-center mx-auto  pt-5 pb-3">
+<div class="text-center mx-auto pt-3 pb-3">
     <h1><a href="index.html">Minesweeper</a></h1>
     <!--    <div class="container">-->
     <!--        <div class="row">-->
@@ -23,9 +23,15 @@
 
 <!-- Body -->
 <div class="pb-3" style="height: 55px; text-align: center">
-    <a href="normal.html" class="restart">
-        Restart
-    </a>
+    <button class="play easy">
+        Easy
+    </button>
+    <button class="play normal">
+        Normal
+    </button>
+    <button class="play hard">
+        Hard
+    </button>
 </div>
 
 <table id="minesweeper-container" class="mx-auto">
@@ -48,16 +54,18 @@
         this.is_flagged = false;
         this.is_revealed = false;
         this.adjacent_bombs = 0;
+        this.clicked = false;
     }
 
     var ms = $('#minesweeper-container');
-    var grid_size = 10; // num of rows, also num of cols
     var grid = [];
+    var grid_size = 9; // num of rows, also num of cols
     var num_bombs = 10;
 
     let game_over = false;
 
     function initGrid() {
+        grid = [];
         for (let i = 0; i < grid_size; i++) {
             grid[i] = [];
             for (let j = 0; j < grid_size; j++) {
@@ -65,24 +73,21 @@
             }
         }
 
-        let bomb_locations = new Set();
         for (let i=0; i<num_bombs;) {
             let bomb_i = Math.floor(Math.random() * grid_size);
             let bomb_j = Math.floor(Math.random() * grid_size);
-            let bomb_loc = [bomb_i, bomb_j];
 
-            if (!bomb_locations.has(bomb_loc)) {
-                bomb_locations.add(bomb_loc);
+            if (!grid[bomb_i][bomb_j].is_bomb) {
+                grid[bomb_i][bomb_j].is_bomb = true;
                 i++;
             }
         }
 
-        bomb_locations.forEach(function(bomb_loc) {
-            grid[bomb_loc[0]][bomb_loc[1]].is_bomb = true;
-        });
         // set num adjacent bombs
         setAdjacent();
+        drawGame();
     }
+
 
     function drawGame() {
         ms.empty();
@@ -111,6 +116,10 @@
                         col_class = 'text_three';
                     }
                     tile_el = $('<td class="tile tile_revealed '+col_class+'">'+ (num_adj > 0 ? num_adj : '') +'</td>');
+                }
+
+                if (row[j].clicked) {
+                    tile_el.addClass('clicked');
                 }
 
                 col_el.append(tile_el)
@@ -155,8 +164,10 @@
                 let j = $(this).data('j');
 
                 let square = grid[i][j];
+                square.clicked = true;
 
                 if (square.is_bomb) {
+                    square.clicked = true;
                     setAllRevealed();
                     complete(false);
                     return;
@@ -246,9 +257,35 @@
         $('.restart').show();
     }
 
+    function restart(size_grid, bombs) {
+        grid_size = size_grid;
+        num_bombs = bombs;
+        game_over = false;
+
+        $('.restart').hide();
+        $('#game-complete').hide();
+        initGrid();
+    }
+
     $(document).ready(function () {
         initGrid();
-        drawGame();
+        $('.restart').on('click', function () {
+            $('.restart').hide();
+            $('#game-complete').hide();
+            game_over = false;
+            grid_size = 15;
+            num_bombs = 36;
+            initGrid();
+        });
+        $('.play').on('click', function () {
+           if ($(this).hasClass('easy')) {
+               restart(9, 10);
+           } else if ($(this).hasClass('normal')) {
+               restart(13, 33);
+           } else if ($(this).hasClass('hard')) {
+               restart(17, 45);
+           }
+        });
     });
 
 
