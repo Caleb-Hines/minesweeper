@@ -164,23 +164,25 @@
                 let j = $(this).data('j');
 
                 let square = grid[i][j];
-                square.clicked = true;
 
-                if (square.is_bomb) {
+                if (!square.is_flagged) {
                     square.clicked = true;
-                    setAllRevealed();
-                    complete(false);
-                    return;
+
+                    if (square.is_bomb) {
+                        setAllRevealed();
+                        complete(false);
+                        return;
+                    }
+                    square.is_revealed = true;
+
+                    if (square.adjacent_bombs == 0) {
+                        revealZeros(i, j);
+                    }
+
+                    checkWon();
+
+                    drawGame();
                 }
-                square.is_revealed = true;
-
-                if (square.adjacent_bombs == 0) {
-                    revealZeros(i, j);
-                }
-
-                checkWon();
-
-                drawGame();
             }
         });
 
