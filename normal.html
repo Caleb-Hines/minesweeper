@@ -54,7 +54,7 @@
         this.is_flagged = false;
         this.is_revealed = false;
         this.adjacent_bombs = 0;
-        this.clicked = false;
+        this.is_clicked = false;
     }
 
     var ms = $('#minesweeper-container');
@@ -118,8 +118,8 @@
                     tile_el = $('<td class="tile tile_revealed '+col_class+'">'+ (num_adj > 0 ? num_adj : '') +'</td>');
                 }
 
-                if (row[j].clicked) {
-                    tile_el.addClass('clicked');
+                if (row[j].is_clicked) {
+                    tile_el.addClass('is_clicked');
                 }
 
                 col_el.append(tile_el)
@@ -166,7 +166,7 @@
                 let square = grid[i][j];
 
                 if (!square.is_flagged) {
-                    square.clicked = true;
+                    square.is_clicked = true;
 
                     if (square.is_bomb) {
                         setAllRevealed();
