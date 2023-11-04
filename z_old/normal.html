@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <title>Minesweeper</title>
+</head>
+<body>
+
+<!-- Header -->
+<div class="text-center mx-auto pt-3 pb-3">
+    <h1><a href="index.html">Minesweeper</a></h1>
+    <!--    <div class="container">-->
+    <!--        <div class="row">-->
+    <!--            <div class="col-6">Col 1</div>-->
+    <!--            <div class="col-6">Col 2</div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+</div>
+
+
+<!-- Body -->
+<div class="pb-3" style="height: 55px; text-align: center">
+    <button class="play easy">
+        Easy
+    </button>
+    <button class="play normal">
+        Normal
+    </button>
+    <button class="play hard">
+        Hard
+    </button>
+</div>
+
+<table id="minesweeper-container" class="mx-auto">
+
+</table>
+
+<div id="game-complete">
+    <div id="game-complete-text">
+    </div>
+</div>
+
+</body>
+
+
+<script type="text/javascript">
+
+
+    function Square() {
+        this.is_bomb = false;
+        this.is_flagged = false;
+        this.is_revealed = false;
+        this.adjacent_bombs = 0;
+        this.is_clicked = false;
+    }
+
+    var ms = $('#minesweeper-container');
+    var grid = [];
+    var grid_size = 9; // num of rows, also num of cols
+    var num_bombs = 10;
+
+    let game_over = false;
+
+    function initGrid() {
+        grid = [];
+        for (let i = 0; i < grid_size; i++) {
+            grid[i] = [];
+            for (let j = 0; j < grid_size; j++) {
+                grid[i][j] = new Square();
+            }
+        }
+
+        for (let i=0; i<num_bombs;) {
+            let bomb_i = Math.floor(Math.random() * grid_size);
+            let bomb_j = Math.floor(Math.random() * grid_size);
+
+            if (!grid[bomb_i][bomb_j].is_bomb) {
+                grid[bomb_i][bomb_j].is_bomb = true;
+                i++;
+            }
+        }
+
+        // set num adjacent bombs
+        setAdjacent();
+        drawGame();
+    }
+
+
+    function drawGame() {
+        ms.empty();
+        for (let i = 0; i < grid.length; i++) {
+            let row = grid[i];
+            let row_el = $('<tr class="grid_row"></tr>');
+            for (let j = 0; j < row.length; j++) {
+                let tile_el;
+                let col_el = $('<td class="grid_col" data-i="' + i + '" data-j="' + j + '"></td>');
+                if (!row[j].is_revealed) {
+                    if (row[j].is_flagged) {
+                        tile_el = $('<td class="tile tile_flag"><img width="35" src="img/flag.png" /></td>');
+                    } else {
+                        tile_el = $('<td class="tile tile_hidden"></td>');
+                    }
+                } else if (row[j].is_bomb) {
+                    tile_el = $('<td class="tile tile_bomb">b</td>');
+                } else {
+                    let num_adj = grid[i][j].adjacent_bombs;
+                    let col_class = '';
+                    if (num_adj == 1) {
+                        col_class = 'text_one';
+                    } else if (num_adj == 2) {
+                        col_class = 'text_two';
+                    } else if (num_adj >= 3) {
+                        col_class = 'text_three';
+                    }
+                    tile_el = $('<td class="tile tile_revealed '+col_class+'">'+ (num_adj > 0 ? num_adj : '') +'</td>');
+                }
+
+                if (row[j].is_clicked) {
+                    tile_el.addClass('is_clicked');
+                }
+
+                col_el.append(tile_el)
+                row_el.append(col_el);
+            }
+            ms.append(row_el);
+        }
+
+        initClickers();
+    }
+
+    function setAdjacent() {
+        for (let i = 0; i < grid.length; i++) {
+            for (let j = 0; j < grid[i].length; j++) {
+                for (let check_i = i - 1; check_i < i + 2; check_i++) {
+                    for (let check_j = j - 1; check_j < j + 2; check_j++) {
+                        if (check_i >= 0 && check_j >= 0 && check_i < grid_size && check_j < grid_size && !(check_i == i && check_j == j)) {
+                            let square = grid[check_i][check_j];
+                            if (square.is_bomb) {
+                                grid[i][j].adjacent_bombs++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function setAllRevealed() {
+        for (let i = 0; i < grid.length; i++) {
+            for (let j = 0; j < grid[i].length; j++) {
+                grid[i][j].is_revealed = true;
+            }
+        }
+        drawGame();
+    }
+
+    function initClickers() {
+        $('.grid_col').on('click', function () {
+            if (!game_over) {
+                let i = $(this).data('i');
+                let j = $(this).data('j');
+
+                let square = grid[i][j];
+
+                if (!square.is_flagged) {
+                    square.is_clicked = true;
+
+                    if (square.is_bomb) {
+                        setAllRevealed();
+                        complete(false);
+                        return;
+                    }
+                    square.is_revealed = true;
+
+                    if (square.adjacent_bombs == 0) {
+                        revealZeros(i, j);
+                    }
+
+                    checkWon();
+
+                    drawGame();
+                }
+            }
+        });
+
+        $('.grid_col').on('contextmenu', function (e) {
+            e.preventDefault();
+
+            let i = $(this).data('i');
+            let j = $(this).data('j');
+            console.log(i + ',' + j);
+
+            let square = grid[i][j];
+            if (!square.is_revealed) {
+                square.is_flagged = !square.is_flagged;
+
+                drawGame();
+            }
+        });
+
+    }
+
+    // inefficient
+    function revealZeros(i, j) {
+        // console.log('revealZeros: ' + i +  ", " + j);
+        for (let reveal_i = i - 1; reveal_i < i + 2; reveal_i++) {
+            for (let reveal_j = j - 1; reveal_j < j + 2; reveal_j++) {
+                if (reveal_i >= 0 && reveal_j >= 0 && reveal_i < grid_size && reveal_j < grid_size && !(reveal_i == i && reveal_j == j)) {
+                    let square = grid[reveal_i][reveal_j];
+                    let was_revealed = square.is_revealed;
+                    square.is_revealed = true;
+                    if (square.adjacent_bombs == 0 && was_revealed === false) {
+                        revealZeros(reveal_i, reveal_j);
+                    }
+                }
+            }
+        }
+    }
+
+    function checkWon() {
+        let all_revealed = true;
+
+        for (let i = 0; i < grid.length; i++) {
+            let row_length = grid[i].length;
+            for (let j = 0; j < row_length; j++) {
+                if (!grid[i][j].is_bomb && !grid[i][j].is_revealed) {
+                    all_revealed = false;
+                    i += 99999;
+                    j += 99999;
+                }
+            }
+        }
+        if (all_revealed) {
+            setAllRevealed();
+            complete(true);
+        }
+    }
+
+    function complete(won = true) {
+        game_over = true;
+        let won_el = $('#game-complete');
+        let text_el = $('#game-complete-text');
+        let top;
+        if (won) {
+            text_el.text('You won!');
+            top = "0%";
+        } else {
+            text_el.text('L');
+            top = "15%";
+        }
+        won_el.append(text_el);
+        won_el.show();
+
+        won_el.css('top', top);
+
+        $('.restart').show();
+    }
+
+    function restart(size_grid, bombs) {
+        grid_size = size_grid;
+        num_bombs = bombs;
+        game_over = false;
+
+        $('.restart').hide();
+        $('#game-complete').hide();
+        initGrid();
+    }
+
+    $(document).ready(function () {
+        initGrid();
+        $('.restart').on('click', function () {
+            $('.restart').hide();
+            $('#game-complete').hide();
+            game_over = false;
+            grid_size = 15;
+            num_bombs = 36;
+            initGrid();
+        });
+        $('.play').on('click', function () {
+           if ($(this).hasClass('easy')) {
+               restart(9, 10);
+           } else if ($(this).hasClass('normal')) {
+               restart(13, 33);
+           } else if ($(this).hasClass('hard')) {
+               restart(17, 45);
+           }
+        });
+    });
+
+
+</script>
+</html>
